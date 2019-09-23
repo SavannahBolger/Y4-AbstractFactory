@@ -28,6 +28,7 @@ public:
 	Character() {};
 	~Character() {};
 	virtual void Draw() = 0;
+private:
 };
 
 class Player : public Character
@@ -37,15 +38,28 @@ public:
 	void Draw() { api->Draw(); }
 private:
 	DrawAPI* api;
+	Character* character;
 };
 
 int main()
 {
 	DrawAPI* api = new DrawImpl();
-	Character* character = new Player(api);
-	character->Draw();
-	std::cin.get();
-
+	/*for (size_t i = 0; i < 5; i++)
+	{
+		Character* character = new Player(api);
+		character->Draw();
+		std::cout << character << std::endl;
+	}*/
+	std::vector<Character*> characters;
+	for (int i = 0; i < 5; i++)
+	{
+		characters.push_back(new Player(api));
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		characters[i]->Draw();
+		std::cout << characters[i] << std::endl;
+	}
 	system("pause");
 	return 0;
 }
